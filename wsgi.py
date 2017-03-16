@@ -6,13 +6,13 @@ import pandas_datareader.data as web
 import datetime as dt
 
 
-app = dash.react.Dash('my app')
-app.component_suites = [
+application = dash.react.Dash('my app')
+application.component_suites = [
     'dash_html_components',
     'dash_core_components'
 ]
 
-app.layout = html.Div([
+application.layout = html.Div([
     html.Link(
         rel="stylesheet",
         href="https://cdnjs.cloudflare.com/ajax/libs/skeleton"
@@ -44,7 +44,7 @@ app.layout = html.Div([
 ])
 
 
-@app.react('update-text', ['my-input'])
+@application.react('update-text', ['my-input'])
 def update_text(input):
     input_value = input['value']
     df = web.DataReader(input['value'], 'yahoo',
@@ -58,7 +58,7 @@ def update_text(input):
         )
     }
 
-@app.react('my-graph', ['my-input'])
+@application.react('my-graph', ['my-input'])
 def update_graph(input):
     df = web.DataReader(input['value'], 'yahoo',
                         dt.datetime(2016, 6, 1),
@@ -82,4 +82,4 @@ def update_graph(input):
     }
 
 
-app.server.run(debug=True)
+application.server.run(debug=True)
